@@ -1,5 +1,8 @@
 package com.alysson.books.controller;
 
+import javax.validation.Valid;
+
+import com.alysson.books.dto.BookDTO;
 import com.alysson.books.dto.MessageResponseDTO;
 import com.alysson.books.entity.Book;
 import com.alysson.books.service.BookService;
@@ -29,8 +32,8 @@ public class BookController {
     return "teste";
   }
   @PostMapping
-  public MessageResponseDTO create(@RequestBody Book book){
-    return bookService.create(book);
+  public MessageResponseDTO create(@RequestBody @Valid BookDTO bookDTO){
+    return bookService.create(bookDTO);
   }
   
 }

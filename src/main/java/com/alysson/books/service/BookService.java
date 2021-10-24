@@ -1,5 +1,6 @@
 package com.alysson.books.service;
 
+import com.alysson.books.dto.BookDTO;
 import com.alysson.books.dto.MessageResponseDTO;
 import com.alysson.books.entity.Book;
 import com.alysson.books.repository.BookRepository;
@@ -16,8 +17,16 @@ public class BookService {
   public BookService(BookRepository bookRepository) {
     this.bookRepository = bookRepository;
   }
-  public MessageResponseDTO create(Book book){
-    Book savedBook = bookRepository.save(book);
+  public MessageResponseDTO create(BookDTO bookDTO){
+    Book savedBookDTO = Book.builder()
+                            .name(bookDTO.getName())
+                            .pages(bookDTO.getPages())
+                            .publisherName(bookDTO.getPublisherName())
+                            .isbn(bookDTO.getIsbn())
+                            .chapters(bookDTO.getChapters())
+                            .author(bookDTO.getAuthor())
+                            .build();
+    Book savedBook = bookRepository.save(savedBookDTO);
     return MessageResponseDTO.builder()
     .message("Book created " + savedBook.getId())
     .build();
